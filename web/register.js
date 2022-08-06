@@ -21,7 +21,7 @@ function Register(){
             alert("데이터전송 성공");
         },
         error: function (error){
-            console.log(data)
+            console.log(error)
             alert("에러");
         }
     })

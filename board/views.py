@@ -2,6 +2,7 @@
 
 from email import message
 from enum import unique
+from unicodedata import name
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import viewsets, permissions, generics, status
@@ -13,6 +14,7 @@ from rest_framework.decorators import api_view
 
 from .models import Auth
 from .serializers import AuthSerializer
+from board import serializers
 
 # Create your views here.
 
@@ -49,6 +51,6 @@ class userLoginAPI(APIView):
                 print("correct id")
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                return Response({"fault password"}, status=status.HTTP_404_NOT_FOUND)
+                return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
