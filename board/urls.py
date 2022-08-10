@@ -3,7 +3,7 @@ from django.urls import path
 from .views import userRegisterAPI, userLoginAPI
 
 # 220810
-from .views import boardsAPI
+from .views import boardsAPI, boardAPI
 
 urlpatterns = [
     path('register/', userRegisterAPI.as_view()),
@@ -11,4 +11,5 @@ urlpatterns = [
 
     # 220810
     path('board/', boardsAPI.as_view()),
+    path('board/<int:id>/', boardAPI.as_view()),
 ]

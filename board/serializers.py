@@ -11,7 +11,13 @@ class AuthSerializer(serializers.ModelSerializer):
         fields = ('userId',"password","email")
 
 # 220810
-class InfoSerializer(serializers.ModelSerializer):
+class InfoListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Info
+        fields = ('title', 'description', 'category')
+
+# 220810
+class InfoDetailSerilizer(serializers.ModelSerializer):
     class Meta:
         model = Info
         fields = ('title', 'description', 'author', 'category')
