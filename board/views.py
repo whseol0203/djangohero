@@ -2,6 +2,7 @@
 
 from email import message
 from enum import unique
+from msilib.schema import ServiceInstall
 from unicodedata import name
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -15,6 +16,10 @@ from rest_framework.decorators import api_view
 from .models import Auth
 from .serializers import AuthSerializer
 from board import serializers
+
+# 220810
+from .models import Info
+from .serializers import InfoSerializer
 
 # Create your views here.
 
@@ -54,3 +59,20 @@ class userLoginAPI(APIView):
                 return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
+# 220810
+# 게시글 전체 조회, 업로드
+class boardAPI(APIView):
+
+    # 게시글 전체 조회
+    def get(self, request):
+        boards = Info.objects.all()
+        serializer = InfoSerializer(boards, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # 게시글 업로드
+    def post(self, request):
+        serializer = InfoSerializer(dta=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
