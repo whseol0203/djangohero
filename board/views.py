@@ -61,7 +61,7 @@ class userLoginAPI(APIView):
 
 # 220810
 # 게시글 전체 조회, 업로드
-class boardAPI(APIView):
+class boardsAPI(APIView):
 
     # 게시글 전체 조회
     def get(self, request):
