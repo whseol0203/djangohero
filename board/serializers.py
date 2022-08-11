@@ -3,21 +3,21 @@ from rest_framework import serializers
 from .models import Auth
 
 # 220810
-from .models import Info
+from .models import PostInfo
 
 class AuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = Auth
-        fields = ('userId',"password","email")
+        fields = ('nickname','uid','password')
 
 # 220810
-class InfoListSerializer(serializers.ModelSerializer):
+class PostInfoListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Info
+        model = PostInfo
         fields = ('title', 'description', 'category')
 
 # 220810
-class InfoDetailSerilizer(serializers.ModelSerializer):
+class PostInfoDetailSerilizer(serializers.ModelSerializer):
     class Meta:
-        model = Info
+        model = PostInfo
         fields = ('title', 'description', 'author', 'category')

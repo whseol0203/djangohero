@@ -1,9 +1,4 @@
 
-from email import message
-from enum import unique
-from msilib.schema import ServiceInstall
-from unicodedata import name
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.response import Response
@@ -14,12 +9,11 @@ from rest_framework.decorators import api_view
 
 from .models import Auth
 from .serializers import AuthSerializer
-from board import serializers
 
 # 220810
-from .models import Info
-from .serializers import InfoListSerializer
-from .serializers import InfoDetailSerilizer
+from .models import PostInfo
+from .serializers import PostInfoListSerializer
+from .serializers import PostInfoDetailSerilizer
 
 # Create your views here.
 
@@ -46,11 +40,11 @@ class userLoginAPI(APIView):
         
         if serializer.is_valid():
             
-            inputId = serializer.validated_data['userId']
+            inputId = serializer.validated_data['uid']
             inputPassword = serializer.validated_data.get('password')
             print("hello")
 
-            dbObj = get_object_or_404(Auth,userId=inputId)
+            dbObj = get_object_or_404(Auth,uid=inputId)
 
             if dbObj.password == inputPassword:
                 print("correct id")
@@ -65,13 +59,13 @@ class boardsAPI(APIView):
 
     # 게시글 전체 조회
     def get(self, request):
-        boards = Info.objects.all()
-        serializer = InfoListSerializer(boards, many=True)
+        boards = PostInfo.objects.all()
+        serializer = PostInfoListSerializer(boards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 게시글 업로드
     def post(self, request):
-        serializer = InfoListSerializer(dta=request.data)
+        serializer = PostInfoListSerializer(dta=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -82,6 +76,6 @@ class boardAPI(APIView):
 
     # 게시글 조회
     def get(self, request, id):
-        board = get_object_or_404(Info, id=id)
-        serializer = InfoDetailSerilizer(board)
+        board = get_object_or_404(PostInfo, id=id)
+        serializer = PostInfoDetailSerilizer(board)
         return Response(serializer.data, status=status.HTTP_200_OK)
