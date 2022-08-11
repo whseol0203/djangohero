@@ -29,9 +29,20 @@ class Info(models.Model):
     time = models.TimeField(auto_now=False, auto_now_add=True)
     # media = 일단 보류
     category = models.CharField(max_length=30)
+    likeList = []
+    commentList = []
+    views = 0
 
 # 댓글 모델
 class Comment(models.Model):
     userName = models.CharField(max_length=50)
     time = models.TimeField(auto_now=False, auto_now_add=True)
     contents = models.CharField(max_length=100)
+
+# 프로필 모델
+class Profile(models.Model):
+    userName = models.CharField(max_length=50)
+    userId = models.CharField(max_length=50)
+    postList = []
+    commentList = []
+    likeList = []
