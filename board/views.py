@@ -23,7 +23,7 @@ class userRegisterAPI(APIView):
     def post(self, request):
         serializer = AuthSerializer(data=request.data)
         if serializer.is_valid():
-            if Auth.objects.filter(userId=serializer.validated_data['userId']).exists():
+            if Auth.objects.filter(uid=serializer.validated_data['uid']).exists():
                 print("exceiption")
                 #raise IdInformationDuplicateException
                 return Response(serializer.errors,status=status.HTTP_401_UNAUTHORIZED)

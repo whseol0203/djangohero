@@ -9,7 +9,7 @@ uid : 유저 ID
 Password : 유저 비밀번호
 '''
 class Auth(models.Model):
-    nickname = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50, default='default')
     uid = models.CharField(max_length=50)
     password = models.CharField(max_length=100)
 
