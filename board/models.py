@@ -51,6 +51,7 @@ time : 작성 시간
 contents : 작성 내용
 '''
 class Comment(models.Model):
+    post_id = models.ForeignKey(PostInfo, null=True,on_delete=models.CASCADE,db_column="post_id",related_name="postInfo")
     nickname = models.CharField(max_length=50)
     time = models.TimeField(auto_now=False, auto_now_add=True)
     contents = models.CharField(max_length=100)

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import userRegisterAPI, userLoginAPI
+from .views import userRegisterAPI, userLoginAPI, commentAPI
 
 # 220810
 from .views import boardsAPI, boardAPI
@@ -12,4 +12,6 @@ urlpatterns = [
     # 220810
     path('board/', boardsAPI.as_view()),
     path('board/<int:id>/', boardAPI.as_view()),
+
+    path('comment/', commentAPI.as_view())
 ]
