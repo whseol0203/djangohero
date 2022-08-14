@@ -9,8 +9,8 @@ uid : 유저 ID
 Password : 유저 비밀번호
 '''
 class Auth(models.Model):
-    nickname = models.CharField(max_length=50, default='default')
-    uid = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50)
+    uid = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=100)
 
 
@@ -30,12 +30,14 @@ commentUserIdList : 댓글 단 사람들의 id 리스트
 views : 본 사람의 수 
 '''
 class PostInfo(models.Model):
+    postUser = models.ForeignKey(Auth, null=True, on_delete=models.CASCADE, db_column="postUser", related_name="postUser")
     title = models.CharField(max_length=50)
     contents = models.CharField(max_length=300)
     author = models.CharField(max_length=50)
     time = models.TimeField(auto_now=False, auto_now_add=True)
     # media = 일단 보류
     category = models.CharField(max_length=30)
+
     likeUserNicknameList = []
     commentUserIdList = []
     views = 0
@@ -51,7 +53,7 @@ time : 작성 시간
 contents : 작성 내용
 '''
 class Comment(models.Model):
-    post_id = models.ForeignKey(PostInfo, null=True,on_delete=models.CASCADE,db_column="post_id",related_name="postInfo")
+    commentUser = models.ForeignKey(Auth, null=True,on_delete=models.CASCADE,db_column="commentUser",related_name="commentUser")
     nickname = models.CharField(max_length=50)
     time = models.TimeField(auto_now=False, auto_now_add=True)
     contents = models.CharField(max_length=100)

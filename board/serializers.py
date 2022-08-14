@@ -13,7 +13,7 @@ class AuthSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ('post_id','nickname','contents')
+        fields = ('nickname','contents','commentUser')
 
 
 
@@ -22,10 +22,17 @@ class PostInfoListSerializer(serializers.ModelSerializer):
     postInfo = CommentSerializer(many=True, read_only=True)
     class Meta:
         model = PostInfo
-        fields = ('title', 'category', 'postInfo')
+        fields = ('title', 'category', 'postInfo','postUser')
 
 # 220810
 class PostInfoDetailSerilizer(serializers.ModelSerializer):
     class Meta:
         model = PostInfo
         fields = ('title', 'description', 'author', 'category')
+
+class ProfileLookupSerializer(serializers.ModelSerializer):
+    postUser = PostInfoListSerializer(many=True,read_only = True)
+    commentUser = CommentSerializer(many=True,read_only= True)
+    class Meta:
+        model = Auth
+        fields = ('nickname','uid','password','postUser','commentUser')
