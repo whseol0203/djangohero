@@ -30,18 +30,24 @@ commentUserIdList : 댓글 단 사람들의 id 리스트
 views : 본 사람의 수 
 '''
 class PostInfo(models.Model):
-    postUser = models.ForeignKey(Auth, null=True, on_delete=models.CASCADE, db_column="postUser", related_name="postUser")
+    # 게시한 사용자 추적
+    postUser = models.ForeignKey(Auth, null=True, on_delete=models.CASCADE, db_column="postUser", related_name="post")
     title = models.CharField(max_length=50)
     contents = models.CharField(max_length=300)
     author = models.CharField(max_length=50)
     time = models.TimeField(auto_now=False, auto_now_add=True)
     # media = 일단 보류
     category = models.CharField(max_length=30)
-
-    likeUserNicknameList = []
-    commentUserIdList = []
     views = 0
 
+
+'''
+수정일 : 220817
+좋아요 표시를 위한 모델
+'''
+class LikeInfo(models.Model):
+    likeUser = models.ForeignKey(Auth, null=True, on_delete=models.CASCADE, db_column="likeUser", related_name="userlike")
+    targetPost = models.ForeignKey(PostInfo, null=True, on_delete=models.CASCADE, db_column="targetPost", related_name="targetPost")
 
 
 '''
@@ -53,25 +59,9 @@ time : 작성 시간
 contents : 작성 내용
 '''
 class Comment(models.Model):
-    commentUser = models.ForeignKey(Auth, null=True,on_delete=models.CASCADE,db_column="commentUser",related_name="commentUser")
+    # 댓글 단 유저 추적
+    commentUser = models.ForeignKey(Auth, null=True,on_delete=models.CASCADE,db_column="commentUser",related_name="comment")
     nickname = models.CharField(max_length=50)
     time = models.TimeField(auto_now=False, auto_now_add=True)
     contents = models.CharField(max_length=100)
 
-
-'''
-수정일 : 220811
-프로필 모델
-
-nickname : 유저 이름
-uid : 유저 아이디
-postIdList : 게시한 게시글 id 리스트
-commentIdList : 작성한 댓글 id 리스트
-likePostIdList : 좋아요를 누른 게시글 아이디
-'''
-class Profile(models.Model):
-    nickname = models.CharField(max_length=50)
-    uid = models.CharField(max_length=50)
-    postIdList = []
-    commentIdList = []
-    likePostIdList = []

@@ -106,5 +106,3 @@ class profileLookupAPI(APIView):
         serializer = ProfileLookupSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-def detail_profile(request, uid):
-    return HTTPResponse(''.format(uid))

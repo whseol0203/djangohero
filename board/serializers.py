@@ -31,8 +31,8 @@ class PostInfoDetailSerilizer(serializers.ModelSerializer):
         fields = ('title', 'description', 'author', 'category')
 
 class ProfileLookupSerializer(serializers.ModelSerializer):
-    postUser = PostInfoListSerializer(many=True,read_only = True)
-    commentUser = CommentSerializer(many=True,read_only= True)
+    post = PostInfoListSerializer(many=True,read_only = True)
+    comment = CommentSerializer(many=True,read_only= True)
     class Meta:
         model = Auth
-        fields = ('nickname','uid','password','postUser','commentUser')
+        fields = ('nickname','uid','password','post','comment')
