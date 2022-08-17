@@ -58,6 +58,8 @@ time : 작성 시간
 contents : 작성 내용
 '''
 class Comment(models.Model):
+    # 댓글이 달린 포스트(글) 추적
+    commentedPost = models.ForeignKey(PostInfo,null=True,on_delete=models.CASCADE,db_column="commentedPost",related_name="commentedPost")
     # 댓글 단 유저 추적
     commentUser = models.ForeignKey(Auth, null=True,on_delete=models.CASCADE,db_column="commentUser",related_name="comment")
     nickname = models.CharField(max_length=50)

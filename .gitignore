@@ -1,5 +1,5 @@
-myvenv/
+#myvenv/
 
 .DS_Store
 
-board/migrations/
+#board/migrations/
