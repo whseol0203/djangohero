@@ -1,14 +1,16 @@
 
+from http.client import HTTPResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
+from django.http import HttpResponse
 
 
-from .models import Auth
-from .serializers import AuthSerializer
+from .models import Auth, Comment
+from .serializers import AuthSerializer, CommentSerializer, ProfileLookupSerializer
 
 # 220810
 from .models import PostInfo
@@ -65,7 +67,7 @@ class boardsAPI(APIView):
 
     # 게시글 업로드
     def post(self, request):
-        serializer = PostInfoListSerializer(dta=request.data)
+        serializer = PostInfoListSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -79,3 +81,28 @@ class boardAPI(APIView):
         board = get_object_or_404(PostInfo, id=id)
         serializer = PostInfoDetailSerilizer(board)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class commentAPI(APIView):
+     # 댓글 전체 조회
+    def get(self, request):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # 댓글 업로드
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+
+class profileLookupAPI(APIView):
+     # 프로파일 조회
+    def get(self, request, uid):
+        user = get_object_or_404(Auth, uid=uid)
+        serializer = ProfileLookupSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
