@@ -38,8 +38,7 @@ class PostInfo(models.Model):
     time = models.TimeField(auto_now=False, auto_now_add=True)
     # media = 일단 보류
     category = models.CharField(max_length=30)
-    views = models.CharField(max_length=10)
-
+    views = models.IntegerField(null=True,default=0)
 
 '''
 수정일 : 220817
