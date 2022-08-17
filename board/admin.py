@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models import Auth
+from .models import Auth, PostInfo
 
-# 220810
-from .models import PostInfo
+# 220817 admin에 LikeInfo, Comment 추가
+from .models import LikeInfo, Comment
 
 # Register your models here.
 admin.site.register(Auth)
-
-# 220810
 admin.site.register(PostInfo)
+
+# 220817
+admin.site.register(LikeInfo)
+admin.site.register(Comment)
