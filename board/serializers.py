@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from .models import Auth, Comment
+from .models import Auth, Comment, LikeInfo
 
 # 220817
 # CommentSerializer time field 추가
@@ -10,6 +10,7 @@ class AuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = Auth
         fields = ('nickname','uid','password')
+
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,11 +31,25 @@ class PostInfoDetailSerilizer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     class Meta:
         model = PostInfo
-        fields = ('postUser', 'title', 'contents', 'author', 'category', 'views', 'comments')
+        fields = ('title', 'contents', 'author', 'category')
 
+'''
+220817
+좋아요 누른 사람의 정보를 불러오는 시리얼라이저
+'''
+class likeUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LikeInfo
+        fields = ('likeUser','targetPost')
+
+'''
+유저의 정보를 불러오는 시리얼라이저
+'''
 class ProfileLookupSerializer(serializers.ModelSerializer):
     post = PostInfoListSerializer(many=True,read_only = True)
-    comments = CommentSerializer(many=True,read_only= True)
+    comment = CommentSerializer(many=True,read_only= True)
+    like = likeUserSerializer(many=True,read_only = True)
     class Meta:
         model = Auth
-        fields = ('nickname','uid','password','post','comments')
+        fields = ('nickname','uid','password','post','comment','like')
+
