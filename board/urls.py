@@ -3,6 +3,10 @@ from django.urls import path
 
 from .views import userRegisterAPI, userLoginAPI, commentAPI, profileLookupAPI
 
+
+# test code
+from .views import likeAddAPI
+
 # 220810
 from .views import boardsAPI, boardAPI
 
@@ -15,5 +19,7 @@ urlpatterns = [
     path('board/<int:id>/', boardAPI.as_view()),
 
     path('comment/', commentAPI.as_view()),
-    path('profile/<str:uid>/',profileLookupAPI.as_view())
+    path('profile/<str:uid>/',profileLookupAPI.as_view()),
+
+    path('likeAdd/',likeAddAPI.as_view())
 ]

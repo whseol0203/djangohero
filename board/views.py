@@ -10,7 +10,7 @@ from django.http import HttpResponse
 
 
 from .models import Auth, Comment
-from .serializers import AuthSerializer, CommentSerializer, ProfileLookupSerializer
+from .serializers import AuthSerializer, CommentSerializer, LikeUserSerializer, ProfileLookupSerializer
 
 # 220810
 from .models import PostInfo
@@ -106,3 +106,12 @@ class profileLookupAPI(APIView):
         serializer = ProfileLookupSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+# 테스트 코드
+# 좋아요 수동 추가용도 
+class likeAddAPI(APIView):
+    def post(self, request):
+        serializer = LikeUserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)

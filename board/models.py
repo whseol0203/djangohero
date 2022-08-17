@@ -45,7 +45,7 @@ class PostInfo(models.Model):
 좋아요 표시를 위한 모델
 '''
 class LikeInfo(models.Model):
-    likeUser = models.ForeignKey(Auth, null=True, on_delete=models.CASCADE, db_column="likeUser", related_name="userlike")
+    likeUser = models.ForeignKey(Auth, null=True, on_delete=models.CASCADE, db_column="likeUser", related_name="likeUser")
     targetPost = models.ForeignKey(PostInfo, null=True, on_delete=models.CASCADE, db_column="targetPost", related_name="targetPost")
 
 
