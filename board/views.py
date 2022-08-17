@@ -55,13 +55,13 @@ class userLoginAPI(APIView):
                 return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
-# 220810
-# 게시글 전체 조회, 업로드, 특정 게시글 열람
+# 220817
+# 게시글 전체 시간 역순 조회
 class boardsAPI(APIView):
 
     # 게시글 전체 조회
     def get(self, request):
-        boards = PostInfo.objects.all()
+        boards = PostInfo.objects.order_by('time').reverse()
         serializer = PostInfoListSerializer(boards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
