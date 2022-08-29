@@ -30,7 +30,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/whseol/Library/Mobile Documents/com~apple~CloudDocs/Develop/sogong/myvenv"
+set -gx VIRTUAL_ENV "/Users/whseol/Documents/djangohero/myvenv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
