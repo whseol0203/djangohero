@@ -10,7 +10,7 @@ from django.http import HttpResponse
 
 
 from .models import Auth, Comment
-from .serializers import RegisterSerializer, LoginSerializer, CommentSerializer, LikeUserSerializer, ProfileLookupSerializer, boardPostSerializer
+from .serializers import RegisterSerializer, LoginSerializer, CommentSerializer, LikeUserSerializer, ProfileLookupSerializer
 
 # 220810
 from .models import PostInfo
