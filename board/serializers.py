@@ -18,10 +18,17 @@ class LikeUserSerializer(serializers.ModelSerializer):
 
 
 
-class AuthSerializer(serializers.ModelSerializer):
+# 회원가입용 시리얼라이저
+class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Auth
         fields = ('nickname','uid','password')
+
+# 로그인용 시리얼라이저
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Auth
+        fields = ('uid','password')
 
 
 class CommentSerializer(serializers.ModelSerializer):
