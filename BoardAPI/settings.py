@@ -141,6 +141,7 @@ CORS_ORIGIN_WHITELIST = ['http://192.168.200.125:8080',
                          'http://localhost:*',
                          'http://192.168.200.125:8080',
                          'http://192.168.200.125:8080',
+                         'http://192.168.35.124:8080',
                          'https://whseol0203.github.io'
                         ]
 CORS_ALLOW_CREDENTIALS = True
